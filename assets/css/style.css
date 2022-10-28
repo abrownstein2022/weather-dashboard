@@ -41,10 +41,10 @@
     content: "";  /*fake out as if there were text here so can use underline property below button*/
     border-bottom: 5px solid #c8c8c9; /*this is the thickness, style and color of the border*/
     position:absolute;
-    bottom:-4px;  /*needs to be below*/
-    left: 0px;
-    width: 260px;
-    height: 3px; 
+    bottom:-4px;  /*sets up spacing below*/
+    left: 0px;    /*no left spacing*/
+    width: 260px;  /*same width (how long) as buttons above and beloww*/
+    height: 4px;   /*how thick (high) line is*/
     
   }
 
@@ -78,7 +78,7 @@
   
   header {
     padding: 5px;
-    background-color: #393f96;
+    background-image: linear-gradient(to right, #465ab8 , #261360);
     text-align: center;
   }
 
