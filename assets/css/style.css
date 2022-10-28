@@ -101,8 +101,10 @@
 
   .curr-day-forecast{
     border: 2px solid #a1a1a1;
-    padding: 5px;  /*space between elements and text*/
+    padding: 4px;  /*space between elements and text*/
+    margin-top:10px;  /*put some space between header and curr day forecast box*/
 }
+
 
   .five-day-container {
     display: flex;
