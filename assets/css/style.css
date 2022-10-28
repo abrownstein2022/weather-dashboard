@@ -14,25 +14,38 @@
 
 .search-btn{
    background-color: #6991e3;
-   width: 200px;
+   width: 260px;
+   margin-bottom: 10px;
+   color: white;
+   padding: 10px 0 10px 0px;
+   border: none;  /*no border*/
+   border-radius: 5px;
+   font-family:Calibri, 'Trebuchet MS', sans-serif;
+   font-size: 14px;
 }
    /*never give height to labels, inputs, buttons or headings*/
 .search-input {  /*rounded borders on input box*/
    border-radius: 5px;
    border: 2px solid gray;
    /* padding is for all-around - all side left, rt, up, down */
-   padding: 3px;  
-   width: 200px;
-
+   padding: 10px 0 10px 5px;  /*means 10px top, 0 right, 10px bottom, 5px left, goes clockwise*/
+   width: 260px;
+   margin-bottom: 10px;
   }
 
-  .outer-div-left{
-    width: 30%;
-  }
+ .search-form{
+    position:relative; /*parent must be relative and child must be absolute*/
+ }
 
-
-  .outer-div-right{
-    width: 68%;
+  .search-form::after{
+    content: "";  /*fake out as if there were text here so can use underline property below button*/
+    border-bottom: 5px solid #c8c8c9; /*this is the thickness, style and color of the border*/
+    position:absolute;
+    bottom:-4px;  /*needs to be below*/
+    left: 0px;
+    width: 260px;
+    height: 3px; 
+    
   }
 
   .city-btn {
@@ -41,29 +54,51 @@
     font-size: 1em;
     cursor: pointer;
     text-align: center;
-    width: 200px;
-    /* letter-spacing: 0.21px;
-    line-height: 16px;
-    max-width: 255px;
-    padding: 5px 15px;
-
-    transition-duration: 0.15s;
-    transition-property: background-color;
-    transition-timing-function: linear;
-    margin-top: 0.6em; */
+    width: 260px;
+    margin-bottom: 10px;
+    padding: 10px 0 10px 0px;
+    border: none;  /*no border*/
+    border-radius: 5px;
+    /* font-weight: 500;  /*less than bold bold=600*/
+    /* font-size: 16px;*/
+    font-family:Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 14px;
   }
+  
+
+  .outer-div-left{
+    width: 30%;
+  }
+
+
+  .outer-div-right{
+    width: 70%;
+  }
+
   
   header {
     padding: 5px;
-    color: black;
-    border-bottom:5px #879274;
-    font-size: 20px;
+    background-color: #393f96;
+    text-align: center;
+  }
+
+  header h1{
+    color: white;
   }
 
   .five-day{
     background-color: #343850; 
     color: white;
   }
+
+  .container{
+    max-width: 1170px; /*std size for desktop - automatically fixes spacing on edges*/
+    /* center left and right within container. 
+     margin left and right only work when specifying width */
+    margin-left: auto;  
+    margin-right: auto;
+   }
+
   
   main {
     display: flex;

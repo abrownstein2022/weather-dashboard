@@ -6,76 +6,91 @@
 </head>
 
 <body>
-    <header>
-        <h1> Weather Dashboard</h1>
-    </header>
+    <div>
+        <header>
+            <div class="container">
+                <h1> Weather Dashboard</h1>
+            </div>
+        </header>
 
-    <main>
-        <!-- anytime something is submitted, needs a form and submit button -->
-        <div class="outer-div-left">
-            <!--block vs inline elements-->
-            <!--heading goes before form-->
-            <h2>Search for a City:</h2>
-            <form class="search" id="search">
-                <!-- input is self-closing so need / before > -->
-                <!-- placeholder offers suggestion in input box -->
-                <input class="search-input" id="search-input" placeholder="San Diego" />
-                <button class="search-btn" type="submit" id="submit">Search</button>
-            </form>
-            <div>
-                <button class="city-btn" id="city-btn">Atlanta</button>
-                <button class="city-btn" id="city-btn">Denver</button>
-                <button class="city-btn" id="city-btn">Seattle</button>
+        <div>
+            <div class="container">
+                <main>
+
+                    <!-- anytime something is submitted, needs a form and submit button -->
+                    <div class="outer-div-left">
+                        <!--block vs inline elements-->
+                        <!--heading goes before form-->
+                        <h2>Search for a City:</h2>
+                        <form class="search-form" id="search">
+                            <!-- input is self-closing so need / before > -->
+                            <!-- placeholder offers suggestion in input box -->
+                            <input class="search-input" id="search-input" placeholder="San Diego" />
+                            <button class="search-btn" type="submit" id="submit">Search</button>
+                        </form>
+                        <div>
+                            <button class="city-btn" id="city-btn">Atlanta</button>
+                            <button class="city-btn" id="city-btn">Denver</button>
+                            <button class="city-btn" id="city-btn">Seattle</button>
+                        </div>
+                    </div>
+                    <div class="outer-div-right">
+                        <!--outer div for right side-->
+                        <div>
+                            <!--div for the current day forecast-->
+                            <h2 id="city-name">Atlanta <span id="thedate">9/13/2022</span></h2>
+                            <p>Temp: <span id="temp">76.62</span> °F</p>
+                            <p>Wind: <span id="wind">8.43</span> MPH</p>
+                            <p>Humidity: <span id="humidity">44</span> %</p>
+                        </div>
+                        <div>
+                            <!--div for the 5 day forecast-->
+                            <h2>5-Day Forecast</h2>
+                            <div class="five-day">
+                                <!--day 1 of 5 day forecast-->
+                                <h2 id="thedate1">9/14/2022</h2>
+                                <p>Temp: <span id="temp1">63.55</span> °F</p>
+                                <p>Wind: <span id="wind1">3.94</span> MPH</p>
+                                <p>Humidity: <span id="humidity1">63</span> %</p>
+                            </div>
+                            <div class="five-day">
+                                <!--day 2 of 5 day forecast-->
+                                <h2 id="thedate2">9/15/2022</h2>
+                                <p>Temp: <span id="temp2">66.52</span> °F</p>
+                                <p>Wind: <span id="wind2">3.91</span> MPH</p>
+                                <p>Humidity: <span id="humidity2">64</span> %</p>
+                            </div>
+                            <div class="five-day">
+                                <!--day 3 of 5 day forecast-->
+                                <h2 id="thedate3">9/16/2022</h2>
+                                <p>Temp: <span id="temp3">67.71</span> °F</p>
+                                <p>Wind: <span id="wind3">3.27</span> MPH</p>
+                                <p>Humidity: <span id="humidity3">64</span> %</p>
+                            </div>
+                            <div class="five-day">
+                                <!--day 4 of 5 day forecast-->
+                                <h2 id="thedate4">9/17/2022</h2>
+                                <p>Temp: <span id="temp4">67.1</span> °F</p>
+                                <p>Wind: <span id="wind4">4.65</span> MPH</p>
+                                <p>Humidity: <span id="humidity4">72</span> %</p>
+                            </div>
+                            <div class="five-day">
+                                <!--day 5 of 5 day forecast-->
+                                <h2 id="thedate5">9/18/2022</h2>
+                                <p>Temp: <span id="temp5">70.57</span> °F</p>
+                                <p>Wind: <span id="wind5">4.23</span> MPH</p>
+                                <p>Humidity: <span id="humidity5">62</span> %</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </main>
             </div>
         </div>
-        <div class="outer-div-right">
-            <!--outer div for right side-->
-            <div>
-                <!--div for the current day forecast-->
-                <h2 id="city-name">Atlanta <span id="thedate">9/13/2022</span></h2>
-                <p>Temp: <span id="temp">76.62</span> °F</p>
-                <p>Wind: <span id="wind">8.43</span> MPH</p>
-                <p>Humidity: <span id="humidity">44</span> %</p> 
-            </div>
-            <div>
-                <!--div for the 5 day forecast-->
-                <h2>5-Day Forecast</h2>
-                <div class="five-day"><!--day 1 of 5 day forecast-->
-                    <h2 id="thedate1">9/14/2022</h2>
-                    <p>Temp: <span id="temp1">63.55</span> °F</p>
-                    <p>Wind: <span id="wind1">3.94</span> MPH</p>
-                    <p>Humidity: <span id="humidity1">63</span> %</p> 
-                </div>
-                <div class="five-day"><!--day 2 of 5 day forecast-->
-                    <h2 id="thedate2">9/15/2022</h2>
-                    <p>Temp: <span id="temp2">66.52</span> °F</p>
-                    <p>Wind: <span id="wind2">3.91</span> MPH</p>
-                    <p>Humidity: <span id="humidity2">64</span> %</p> 
-                </div>
-                <div class="five-day"><!--day 3 of 5 day forecast-->
-                    <h2 id="thedate3">9/16/2022</h2>
-                    <p>Temp: <span id="temp3">67.71</span> °F</p>
-                    <p>Wind: <span id="wind3">3.27</span> MPH</p>
-                    <p>Humidity: <span id="humidity3">64</span> %</p> 
-                </div>
-                <div class="five-day"><!--day 4 of 5 day forecast-->
-                    <h2 id="thedate4">9/17/2022</h2>
-                    <p>Temp: <span id="temp4">67.1</span> °F</p>
-                    <p>Wind: <span id="wind4">4.65</span> MPH</p>
-                    <p>Humidity: <span id="humidity4">72</span> %</p> 
-                </div>
-                <div class="five-day"><!--day 5 of 5 day forecast-->
-                    <h2 id="thedate5">9/18/2022</h2>
-                    <p>Temp: <span id="temp5">70.57</span> °F</p>
-                    <p>Wind: <span id="wind5">4.23</span> MPH</p>
-                    <p>Humidity: <span id="humidity5">62</span> %</p> 
-                </div>
 
-            </div>
-        </div>
-
-
-    </main>
+    </div>
     <script src="./assets/scripts/script.js"></script>
 </body>
 
