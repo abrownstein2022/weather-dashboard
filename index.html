@@ -1,0 +1,52 @@
+<head>
+    <title>Weather Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1> Weather Dashboard</h1>
+    </header>
+
+    <main>
+        <!-- anytime something is submitted, needs a form and submit button -->
+        <div>
+            <!--block vs inline elements-->
+            <!--heading goes before form-->
+            <h2>Search for a City:</h2>
+            <form class="search" id="search">
+                <!-- input is self-closing so need / before > -->
+                <!-- placeholder offers suggestion in input box -->
+                <input class="search-input" id="search-input" placeholder="San Diego" />
+                <button type="submit" id="submit">Search</button>
+            </form>
+            <div>
+                <button id="city-buttons">Atlanta</button>
+                <button id="city-buttons">Denver</button>
+                <button id="city-buttons">Seattle</button>
+            </div>
+        </div>
+        <div>
+            <!--outer div for right side-->
+            <div>
+                <!--div for the current day forecast-->
+                <h2 id="city-name">Atlanta <span id="thedate">9/13/2022</span></h2>
+                <p>Temp: <span id="temp">76.62</span>oF</p>
+                <p>Wind: <span id="wind">8.43</span> MPH</p>
+                <p>Humidity: <span id="humidity">44</span> %</p> 
+            </div>
+            <div>
+                <!--div for the 5 day forecast-->
+                <h2>5-Day Forecast</h2>
+                <div></div>
+            </div>
+        </div>
+
+
+    </main>
+    <script src="./assets/scripts/script.js"></script>
+</body>
+
+</html>
