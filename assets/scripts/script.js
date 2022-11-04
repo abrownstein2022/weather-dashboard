@@ -32,8 +32,48 @@ test();  //takes much less time (less than 1ms)
 //only use curly braces in lat, lon and appid below if it's a variable
 //favicon is the icon that's in the browser tab 
 //when look at weather data returned, 8 rows for each dates (look at dev tools - console and expand second row arrow)
-fetch('https://api.openweathermap.org/data/2.5/forecast?lat=40.7128&lon=74.0060&appid=1ce7c4dc7aa95ed0725c005dcae7644f') 
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.log(error));
+//live share extension is a tool that allows another person to collaborate on your project at the same time
+//fetch is a method (built-in function) in JS.  Fetch is also an API. see line 7.  API stands for application programming interface.
+//making a request using lat and long in this api call using fetch
+//api endpoint https is called the api endpoint
+//open weather map is a server that has multiple api endspoint.  The line below for the weather is just one of them.
+//.then is a method that runs a callback function inside of it
+//asdfasfd.addEventListener("click",startButton) - example of callback function, which here is startButton
+//making request to endpoint then making callback function to do next
+//fetch returns a promise, handle promise in then
+//promise has 3 states: fulfilled (got data), rejected (error like 404), pending (still not filfilled or rejected) 
+//fetch lat and log from a different openweather map website to pass to the weather api
+//if the return status in networks tab in dev tools is ok, it's 200 or 204 etc.  If not ok, catch takes over which 
+//might be a 404 or 500.
+//what is response below? it's a parameter - we can name it anything
+//"(response) => response.json()" is a callback function run by .then 
+//response holds non-readable data (only done when ok). then next line below starting with "let data" puts data
+//in json file and it's readable
+//first .then resolves the first promise which was returned from the fetch.
+//second .then resolves the second promise that we got from applying the json method on the response. 
+//each promise needs a .then
+//if more promises, more .then
+//drilling object 
+//data below is the promise
+//below we have to use variables and return the variable but arrow function shorthand we don't have to do that
+fetch('http://api.openweathermap.org/geo/1.0/direct?q=London&limit=1&appid=1ce7c4dc7aa95ed0725c005dcae7644f') 
+ .then(function(response) {
+  let data = response.json();
+  //console.log(data);
+  return data;
+ })
+ .then(function(returnData){
+  console.log(returnData);
+  // console.log(returnData.lon);
+  let lat = returnData[0].lat;
+  console.log(lat)
+ })
+//if multiple statements or using {}, must use return
+// fetch('https://api.openweathermap.org/data/2.5/forecast?lat=40.7128&lon=74.0060&appid=1ce7c4dc7aa95ed0725c005dcae7644f') 
+//   .then((response) =>{
+//    return response.json()
+//   } )
+//   .then((data) => console.log(data))
+//   .catch((error) => console.log(error));
 
+// why they should be in sequence?
