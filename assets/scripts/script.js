@@ -66,7 +66,9 @@ fetch('http://api.openweathermap.org/geo/1.0/direct?q=London&limit=1&appid=1ce7c
   console.log(returnData);
   // console.log(returnData.lon);
   let lat = returnData[0].lat;
-  console.log(lat)
+  console.log(lat);
+  let lon = returnData[0].lon;
+  console.log(lon);
  })
 //if multiple statements or using {}, must use return
 // fetch('https://api.openweathermap.org/data/2.5/forecast?lat=40.7128&lon=74.0060&appid=1ce7c4dc7aa95ed0725c005dcae7644f') 
@@ -77,3 +79,17 @@ fetch('http://api.openweathermap.org/geo/1.0/direct?q=London&limit=1&appid=1ce7c
 //   .catch((error) => console.log(error));
 
 // why they should be in sequence?
+
+// Prmomise states
+// wwhen return executes, any statement below that doesn't execute....
+// console.log is only for debugging and checking the things, data etc.
+//this example uses arrow function while the one above in line 60 uses the older way.  I need to know both ways.
+//template literals (can use vars, text and expressions) have back ticks vs simple string which only use single or double quotes  
+//use backticks around entire string that contains the variables, which makes it a template literal
+fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=1ce7c4dc7aa95ed0725c005dcae7644f`)
+.then((response) => {
+    return response.json();
+})
+.then((returnData) => {
+    console.log(returnData);
+})
