@@ -55,8 +55,8 @@ test();  //takes much less time (less than 1ms)
 //if more promises, more .then
 //drilling object 
 //data below is the promise
-//first we use the geocoding API to get the lat and long of the city entered, then we use that data to get the weather forecase
-//with the forecast API
+//first we use the geocoding API to get the lat and long of the city entered, then we use the lat and lon values 
+//to get the weather forecast with the forecast API
 //below we have to use variables and return the variable but arrow function shorthand we don't have to do that
 fetch(
   "http://api.openweathermap.org/geo/1.0/direct?q=London&limit=1&appid=1ce7c4dc7aa95ed0725c005dcae7644f"
@@ -67,18 +67,18 @@ fetch(
     return data;
   })
   .then(function (returnData) {
-    console.log(returnData);
+    //console.log(returnData);
     // console.log(returnData.lon);
     let lat = returnData[0].lat;
-    console.log(lat);
+   // console.log(lat);
     let lon = returnData[0].lon;
-    console.log(lon);
+   // console.log(lon);
 
-    // Promise states
+    // Promise states.......
     // when return executes, any statement below that doesn't execute....
     // console.log is only for debugging and checking the things, data etc.
     //this example uses arrow function while the one above in line 60 uses the older way.  I need to know both ways.
-    //template literals (can use vars, text and expressions) have back ticks vs simple string which only use single or double quotes
+    //template literals allow vars, text and expressions in string and have back ticks vs simple strings that only use single or double quotes
     //use backticks around entire string that contains the variables, which makes it a template literal
     fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=1ce7c4dc7aa95ed0725c005dcae7644f`
@@ -88,7 +88,13 @@ fetch(
       })
       .then((returnData) => {
         console.log(returnData);
+      })
+      .catch(err => {
+        console.log(err);
       });
+  })
+  .catch(err => {
+    console.log(err);
   });
 //if multiple statements or using {}, must use return
 // fetch('https://api.openweathermap.org/data/2.5/forecast?lat=40.7128&lon=74.0060&appid=1ce7c4dc7aa95ed0725c005dcae7644f') 
