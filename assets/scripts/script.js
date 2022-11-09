@@ -82,19 +82,28 @@ fetch(
     //use backticks around entire string that contains the variables, which makes it a template literal
     fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=1ce7c4dc7aa95ed0725c005dcae7644f`
-    )
+    )  //0: weather: Array(1) 0:{id: 801, main: 'Clouds', description: 'few clouds', icon: '02d'}
+    //02d = day 02n = night
       .then((response) => {
         return response.json();
       })
       .then((returnData) => {
+        //[0] is the first array under list - first weather data for city entered
         console.log(returnData);
+        let desc = returnData[0].weather[0].description;
+        let id = returnData[0].weather[0].id;
+        let icon = returnData[0].weather[0].icon;
+        let main = returnData[0].weather[0].main;
+        let iconimage = icon + '.png';
+        console.log(iconimage);
       })
       .catch(err => {
-        console.log(err);
+        //console.log(err);  throws problem in inspect
       });
   })
-  .catch(err => {
+  .catch(function(err) {
     console.log(err);
+    return err;
   });
 //if multiple statements or using {}, must use return
 // fetch('https://api.openweathermap.org/data/2.5/forecast?lat=40.7128&lon=74.0060&appid=1ce7c4dc7aa95ed0725c005dcae7644f') 
