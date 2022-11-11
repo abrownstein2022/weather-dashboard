@@ -58,9 +58,16 @@ test();  //takes much less time (less than 1ms)
 //first we use the geocoding API to get the lat and long of the city entered, then we use the lat and lon values 
 //to get the weather forecast with the forecast API
 //below we have to use variables and return the variable but arrow function shorthand we don't have to do that
+let cityName = document.querySelector("#city-name");
+let currDay = document.querySelector("#thedate");
+let weatherImg = document.querySelector("#weather-img");  //use this var to assign url each time
+let currtemp = document.querySelector("#temp");
+
+
 let searchcity = document.getElementById("search-input"); //gets city object
 let searchform = document.getElementById("search");  //gets form
 searchform.addEventListener("submit",getFormData);  //submit is an event that we need to capture
+
 function getFormData(e){  //e is submit event which is going to contain all properites of the event
 //prevents default functionality of form to submit the data to the server so city entered will stay 
    e.preventDefault();  //stops default behavior so we can capture the value
@@ -93,18 +100,27 @@ fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=1ce7c4dc7aa95ed0725c005dcae7644f`
     )  //0: weather: Array(1) 0:{id: 801, main: 'Clouds', description: 'few clouds', icon: '02d'}
     //02d = day 02n = night
-      .then((response) => {
+      .then((response) => {  //this is another way to do what we did above 
         return response.json();
       })
       .then((returnData) => {
         //[0] is the first array under list - first weather data for city entered
         console.log(returnData);
-        let desc = returnData[0].weather[0].description;
-        let id = returnData[0].weather[0].id;
-        let icon = returnData[0].weather[0].icon;
-        let main = returnData[0].weather[0].main;
-        let iconimage = icon + '.png';
-        console.log(iconimage);
+        let desc = returnData.list[0].weather[0].description;
+        console.log(desc);
+        let id = returnData.list[0].weather[0].id;
+        let icon = returnData.list[0].weather[0].icon;
+        let main = returnData.list[0].weather[0].main;
+        //use string methods to grab pieces of the date string and rearrange
+        let theday = returnData.list[0].dt_txt; //.toLocaleDateString();
+        let thecity = returnData.city.name;
+        console.log(theday);
+        // let iconimage = icon + '.png';
+        //selector is object so now need to indicate which property in obj being used
+        weatherImg.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+        currDay.textContent = theday;
+        cityName.textContent = thecity;
+
       })
       .catch(err => {
         //console.log(err);  throws problem in inspect
