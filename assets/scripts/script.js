@@ -71,10 +71,26 @@ let showRightSide = document.querySelector(".outer-div-right");
 let searchcity = document.getElementById("search-input"); //gets city object
 let searchform = document.getElementById("search");  //gets form
 searchform.addEventListener("submit",getFormData);  //submit is an event that we need to capture
+let prevSearchForm = document.getElementById("prev-searches"); //dynamically created buttons from local storage for prev city searches
+prevSearchForm.addEventListener("submit",getFormData);  
+
+//https://www.3schools.in/2021/11/how-to-create-button-in-javascript.html
+//https://stackoverflow.com/questions/45056949/adding-button-to-specific-div
+function createCityButtons() {
+  var btn = document.createElement("button");
+  btn.type = "submit";  //same as submit button for new city
+  btn.id = "submit";
+  btn.innerText = "Los Angeles";  //loop and read local storage with city history
+ // btn.onclick = getFormData();  //fix this and called function to work for city search and city buttons****
+  var btnDivEl = document.getElementById('prev-searches');
+  btnDivEl.appendChild(btn);
+}
 
 function getFormData(e){  //e is submit event which is going to contain all properites of the event
 //prevents default functionality of form to submit the data to the server so city entered will stay 
   e.preventDefault();  //stops default behavior so we can capture the value
+  createCityButtons(); //previous search cities;
+
    let city = searchcity.value;
    //console.log(city);  
 fetch(
@@ -215,4 +231,3 @@ fetch(
 //   .catch((error) => console.log(error));
 
 // why they should be in sequence?
-
