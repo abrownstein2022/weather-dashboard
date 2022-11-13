@@ -37,14 +37,14 @@
                         <!--outer div for right side-->
                         <div class="curr-day-forecast">
                             <!--div for the current day forecast-->
-                            <h3 id="city-name">Atlanta (<span id="thedate">9/13/2022</span>
-                            ) 
-                            <img id="weather-img" src="./assets/images/weather-sunny.png" alt="image of weather predicted for the day">                 
-                             <!--in JavaScript:
+                         <span class="first-weather-box"><h3 id="city-name">Atlanta&nbsp;</h3>
+                            <h3 id="thedate">(9/13/2022)</h3>
+                            <!--2rem is about the size of the text in an h3 heading. 1rem is std text size-->
+                            <img id="weather-img" style="max-height:2rem;" src="./assets/images/weather-sunny.png" alt="image of weather predicted for the day">                 
+                        </span>  <!--in JavaScript:
                             let url = "url-full-path-weatherimage.jpg";
                              document.getElementById("weather-img").src = url;  
                             -->
-                        </h3>
                             <p>Temp: <span id="temp">76.62</span> °F</p>
                             <p>Wind: <span id="wind">8.43</span> MPH</p>
                             <p>Humidity: <span id="humidity">44</span> %</p>
@@ -54,43 +54,43 @@
                            <div class="five-day-container"> <!--start div for flexbox for 5 day forecast row-->
                             <div class="five-day-forecast">
                                 <!--day 1 of 5 day forecast-->
-                                <h3 id="thedate1">9/14/2022</h3>
-                                <img id="weather-img1" src="./assets/images/weather-sunny.png" alt="image of weather predicted for 5 day forecast day 1">
-                                <p>Temp: <span id="temp1">63.55</span> °F</p>
-                                <p>Wind: <span id="wind1">3.94</span> MPH</p>
-                                <p>Humidity: <span id="humidity1">63</span> %</p>
+                                <h3 id="thedate0">9/14/2022</h3>
+                                <img id="weather-img0" src="./assets/images/weather-sunny.png" alt="image of weather predicted for 5 day forecast day 1">
+                                <p>Temp: <span id="temp0">63.55</span> °F</p>
+                                <p>Wind: <span id="wind0">3.94</span> MPH</p>
+                                <p>Humidity: <span id="humidity0">63</span> %</p>
                             </div>
                             <div class="five-day-forecast">
                                 <!--day 2 of 5 day forecast-->
-                                <h3 id="thedate2">9/15/2022</h3>
-                                <img id="weather-img2" src="./assets/images/weather-sunny.png" alt="image of weather predicted for 5 day forecast day 2">
-                                <p>Temp: <span id="temp2">66.52</span> °F</p>
-                                <p>Wind: <span id="wind2">3.91</span> MPH</p>
-                                <p>Humidity: <span id="humidity2">64</span> %</p>
+                                <h3 id="thedate1">9/15/2022</h3>
+                                <img id="weather-img1" src="./assets/images/weather-sunny.png" alt="image of weather predicted for 5 day forecast day 2">
+                                <p>Temp: <span id="temp1">66.52</span> °F</p>
+                                <p>Wind: <span id="wind1">3.91</span> MPH</p>
+                                <p>Humidity: <span id="humidity1">64</span> %</p>
                             </div>
                             <div class="five-day-forecast">
                                 <!--day 3 of 5 day forecast-->
-                                <h3 id="thedate3">9/16/2022</h3>
-                                <img id="weather-img3" src="./assets/images/weather-sunny.png" alt="image of weather predicted for 5 day forecast day 3">
-                                <p>Temp: <span id="temp3">67.71</span> °F</p>
-                                <p>Wind: <span id="wind3">3.27</span> MPH</p>
-                                <p>Humidity: <span id="humidity3">64</span> %</p>
+                                <h3 id="thedate2">9/16/2022</h3>
+                                <img id="weather-img2" src="./assets/images/weather-sunny.png" alt="image of weather predicted for 5 day forecast day 3">
+                                <p>Temp: <span id="temp2">67.71</span> °F</p>
+                                <p>Wind: <span id="wind2">3.27</span> MPH</p>
+                                <p>Humidity: <span id="humidity2">64</span> %</p>
                             </div>
                             <div class="five-day-forecast">
                                 <!--day 4 of 5 day forecast-->
-                                <h3 id="thedate4">9/17/2022</h3>
-                                <img id="weather-img4" src="./assets/images/weather-sunny.png" alt="image of weather predicted for 5 day forecast day 4">
-                                <p>Temp: <span id="temp4">67.1</span> °F</p>
-                                <p>Wind: <span id="wind4">4.65</span> MPH</p>
-                                <p>Humidity: <span id="humidity4">72</span> %</p>
+                                <h3 id="thedate3">9/17/2022</h3>
+                                <img id="weather-img3" src="./assets/images/weather-sunny.png" alt="image of weather predicted for 5 day forecast day 4">
+                                <p>Temp: <span id="temp3">67.1</span> °F</p>
+                                <p>Wind: <span id="wind3">4.65</span> MPH</p>
+                                <p>Humidity: <span id="humidity3">72</span> %</p>
                             </div>
                             <div class="five-day-forecast">
                                 <!--day 5 of 5 day forecast-->
-                                <h3 id="thedate5">9/18/2022</h3>
-                                <img id="weather-img5" src="./assets/images/weather-cloudy-rain.png" alt="image of weather predicted for 5 day forecast day 5">
-                                <p>Temp: <span id="temp5">70.57</span> °F</p>
-                                <p>Wind: <span id="wind5">4.23</span> MPH</p>
-                                <p>Humidity: <span id="humidity5">62</span> %</p>
+                                <h3 id="thedate4">9/18/2022 ----</h3>
+                                <img id="weather-img4" src="./assets/images/weather-cloudy-rain.png" alt="image of weather predicted for 5 day forecast day 5">
+                                <p>Temp: <span id="temp4">70.57</span> °F</p>
+                                <p>Wind: <span id="wind4">4.23</span> MPH</p>
+                                <p>Humidity: <span id="humidity4">62</span> %</p>
                             </div>
                          </div><!--end flexbox for 5 day forecast row-->
                         </div>

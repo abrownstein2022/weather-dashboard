@@ -61,8 +61,9 @@ test();  //takes much less time (less than 1ms)
 let cityName = document.querySelector("#city-name");
 let currDay = document.querySelector("#thedate");
 let weatherImg = document.querySelector("#weather-img");  //use this var to assign url each time
-let currtemp = document.querySelector("#temp");
-
+let currTemp = document.querySelector("#temp");
+let currWind = document.querySelector("#wind");
+let currHumidity = document.querySelector("#humidity");
 
 let searchcity = document.getElementById("search-input"); //gets city object
 let searchform = document.getElementById("search");  //gets form
@@ -89,15 +90,31 @@ fetch(
    // console.log(lat);
     let lon = returnData[0].lon;
    // console.log(lon);
+  //this function needs to be above the function below to be called by it
+  //this will split up the array into a smaller chunk that we want to work with
+   function chunk (arr, len) {
+    var chunks = [],
+        i = 0,
+        n = arr.length;
+  
+    while (i < n) {
+      chunks.push(arr.slice(i, i += len));
+    }
+  
+    return chunks;
+  }
 
+  /** started to repeat this behavior, so move to external function for easy repetition */
+  const formatDate = (str) => str.slice(5,7) + '/' + str.slice(8,10) + '/' + str.slice(0,4);
     // Promise states.......
     // when return executes, any statement below that doesn't execute....
     // console.log is only for debugging and checking the things, data etc.
     //this example uses arrow function while the one above in line 60 uses the older way.  I need to know both ways.
     //template literals allow vars, text and expressions in string and have back ticks vs simple strings that only use single or double quotes
     //use backticks around entire string that contains the variables, which makes it a template literal
+    //to get weather units in Farenheit, need to add parm for units=imperial
     fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=1ce7c4dc7aa95ed0725c005dcae7644f`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=1ce7c4dc7aa95ed0725c005dcae7644f`
     )  //0: weather: Array(1) 0:{id: 801, main: 'Clouds', description: 'few clouds', icon: '02d'}
     //02d = day 02n = night
       .then((response) => {  //this is another way to do what we did above 
@@ -105,25 +122,81 @@ fetch(
       })
       .then((returnData) => {
         //[0] is the first array under list - first weather data for city entered
+        //this return a promise so if anything is wrong in this then, the rest is skipped and goes to catch
         console.log(returnData);
         let desc = returnData.list[0].weather[0].description;
-        console.log(desc);
-        let id = returnData.list[0].weather[0].id;
         let icon = returnData.list[0].weather[0].icon;
-        let main = returnData.list[0].weather[0].main;
-        //use string methods to grab pieces of the date string and rearrange
-        let theday = returnData.list[0].dt_txt; //.toLocaleDateString();
-        let thecity = returnData.city.name;
-        console.log(theday);
-        // let iconimage = icon + '.png';
-        //selector is object so now need to indicate which property in obj being used
+        let theday = formatDate(returnData.list[0].dt_txt);
+        //slice starts at 0 like an array and is strange in that the second parm has the ending index that excluded
+       
+        let city = returnData.city.name;
+        let temp = returnData.list[0].main.temp;
+        let wind = returnData.list[0].wind.speed;
+        let humidity = returnData.list[0].main.humidity;
+        //can console.log multiple variables as seen below
+        console.log({theday, desc, icon, city, temp, wind,humidity});
         weatherImg.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-        currDay.textContent = theday;
-        cityName.textContent = thecity;
+        //use backticks to make temperate literal so spcace will not be ignored
+        //use innerHTML instead of textContent so interpreted correctly not as text
+        currDay.innerHTML = `&nbsp;(` + theday + `)`;
+        cityName.textContent = city;
+        currTemp.textContent = temp;
+        currWind.textContent = wind;
+        currHumidity.textContent = humidity;
+        //now we need to split the array above to only show the data for days after the first day
+        //since the current day has already started and may not have as many array elements as future
+        //days that show 5 timeblocks per day in the returnData
+        //item below is the nth item of the list array from the returned data object
+        //can work with item, index and array we're looking at
+        //callbackfunction is everything in parens after filter
+        //array.filter(callback)
+        //callback is (currentItem, currentIndex, originalArray)=>{}   
+        //task for alexis: turn into named function
+        //array.filter((currentItem, currentIndex, originalArray)=>{})   
+        //filter loops through item in array and returns array with items that passed the test we provided
+        //item before the arrow is the first variable so no parens needed
+        //so we will get array of all dates not equal to today
+        // array.filter(item => comparison)
+        // array.filter((item) => { return comparison })
+        // array.filter(myFunc)
+        // array.filter(item => item !== other) return all items that do not equal other
+        //
+        const todaysDate = returnData.list[0].dt_txt
+        const daysAfterToday = returnData.list.filter(item => item.dt_txt !== todaysDate)
+        // chunk takes an array and chunk length, and returns an array  OF arrays
+        // There are 8 timeframes in each day
+        let daysArray = chunk(daysAfterToday, 8)
+        console.log({daysArray})
+
+        /* 
+        daysArray = [
+          [morning, noon, ...],
+          [timeframe1, timeframe2, ...],
+          [timeframe1, timeframe2, ...],
+          [timeframe1, timeframe2, ...],
+          [timeframe1, timeframe2, ...],
+        ]
+
+        */
+
+        daysArray.forEach((day, idx) => {
+          const today = day[2]
+          console.log({today, idx})
+          // let humidEl = document.querySelector(`humidity${idx}`)
+          // humidEl.innerHTML = day.main.humidity;
+          document.querySelector(`#weather-img${idx}`).src = `http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`;
+          document.querySelector(`#thedate${idx}`).innerHTML = formatDate(today.dt_txt)
+          document.querySelector(`#temp${idx}`).innerHTML = today.main.temp;
+          document.querySelector(`#wind${idx}`).innerHTML = today.wind.speed;
+          document.querySelector(`#humidity${idx}`).innerHTML = today.main.humidity;
+
+        })
+            
 
       })
       .catch(err => {
-        //console.log(err);  throws problem in inspect
+        //need to use try..catch to catch the error and handle it before it bombs. Stops JS execution.
+        console.log(err);  //throws problem in inspect
       });
   })
   .catch(function(err) {

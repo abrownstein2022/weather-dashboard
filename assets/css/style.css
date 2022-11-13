@@ -34,6 +34,10 @@
    margin-bottom: 10px;
   }
 
+  .first-weather-box{
+    display: flex;
+  }
+
  .search-form{
     position:relative; /*parent must be relative and child must be absolute*/
  }
@@ -114,10 +118,11 @@
   }
 
   .five-day-forecast{
-    background-color: #343850; 
+    background-color: #6ca2df; 
     color: white;
     width: 19%;
     padding: 5px;  /*space between elements and text*/
+    border-radius: .5rem;
   }
 
   @media screen and (max-width: 1183px) {
