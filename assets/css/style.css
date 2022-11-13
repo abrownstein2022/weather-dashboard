@@ -34,6 +34,11 @@
    margin-bottom: 10px;
   }
 
+/*hide elements to start*/
+.hide {   
+  display: none;
+}
+
   .first-weather-box{
     display: flex;
   }
@@ -104,6 +109,7 @@
   }
 
   .curr-day-forecast{
+    background-color: #d2ddf7;
     border: 2px solid #a1a1a1;
     padding: 4px;  /*space between elements and text*/
     margin-top:10px;  /*put some space between header and curr day forecast box*/

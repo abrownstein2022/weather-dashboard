@@ -65,16 +65,18 @@ let currTemp = document.querySelector("#temp");
 let currWind = document.querySelector("#wind");
 let currHumidity = document.querySelector("#humidity");
 
+let showRightSide = document.querySelector(".outer-div-right");
+
+
 let searchcity = document.getElementById("search-input"); //gets city object
 let searchform = document.getElementById("search");  //gets form
 searchform.addEventListener("submit",getFormData);  //submit is an event that we need to capture
 
 function getFormData(e){  //e is submit event which is going to contain all properites of the event
 //prevents default functionality of form to submit the data to the server so city entered will stay 
-   e.preventDefault();  //stops default behavior so we can capture the value
+  e.preventDefault();  //stops default behavior so we can capture the value
    let city = searchcity.value;
    //console.log(city);  
-
 fetch(
   `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=1ce7c4dc7aa95ed0725c005dcae7644f`
 )
@@ -185,14 +187,14 @@ fetch(
           // let humidEl = document.querySelector(`humidity${idx}`)
           // humidEl.innerHTML = day.main.humidity;
           document.querySelector(`#weather-img${idx}`).src = `http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`;
-          document.querySelector(`#thedate${idx}`).innerHTML = formatDate(today.dt_txt)
+          document.querySelector(`#thedate${idx}`).innerHTML = formatDate(today.dt_txt);
           document.querySelector(`#temp${idx}`).innerHTML = today.main.temp;
           document.querySelector(`#wind${idx}`).innerHTML = today.wind.speed;
           document.querySelector(`#humidity${idx}`).innerHTML = today.main.humidity;
 
         })
             
-
+        showRightSide.classList.remove("hide");   //now show the right section, which is hidden when page opens  
       })
       .catch(err => {
         //need to use try..catch to catch the error and handle it before it bombs. Stops JS execution.
