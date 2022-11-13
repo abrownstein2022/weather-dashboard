@@ -142,9 +142,9 @@ fetch(
         //use innerHTML instead of textContent so interpreted correctly not as text
         currDay.innerHTML = `&nbsp;(` + theday + `)`;
         cityName.textContent = city;
-        currTemp.textContent = temp;
-        currWind.textContent = wind;
-        currHumidity.textContent = humidity;
+        currTemp.textContent = temp + ' °F';
+        currWind.textContent = wind + ' MPH';
+        currHumidity.textContent = humidity + ' %';
         //now we need to split the array above to only show the data for days after the first day
         //since the current day has already started and may not have as many array elements as future
         //days that show 5 timeblocks per day in the returnData
@@ -188,9 +188,9 @@ fetch(
           // humidEl.innerHTML = day.main.humidity;
           document.querySelector(`#weather-img${idx}`).src = `http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`;
           document.querySelector(`#thedate${idx}`).innerHTML = formatDate(today.dt_txt);
-          document.querySelector(`#temp${idx}`).innerHTML = today.main.temp;
-          document.querySelector(`#wind${idx}`).innerHTML = today.wind.speed;
-          document.querySelector(`#humidity${idx}`).innerHTML = today.main.humidity;
+          document.querySelector(`#temp${idx}`).innerHTML = today.main.temp + ' °F';
+          document.querySelector(`#wind${idx}`).innerHTML = today.wind.speed + ' MPH';
+          document.querySelector(`#humidity${idx}`).innerHTML = today.main.humidity + ' %';
 
         })
             
