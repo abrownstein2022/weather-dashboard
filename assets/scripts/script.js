@@ -81,7 +81,7 @@ function createCityButtons() {
   btn.type = "submit";  //same as submit button for new city
   btn.id = "submit";
   btn.innerText = "Los Angeles";  //loop and read local storage with city history
- // btn.onclick = getFormData();  //fix this and called function to work for city search and city buttons****
+  //btn.onclick = getFormData();  //fix this and called function to work for city search and city buttons****
   var btnDivEl = document.getElementById('prev-searches');
   btnDivEl.appendChild(btn);
 }
