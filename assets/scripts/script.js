@@ -58,6 +58,7 @@ test();  //takes much less time (less than 1ms)
 //first we use the geocoding API to get the lat and long of the city entered, then we use the lat and lon values 
 //to get the weather forecast with the forecast API
 //below we have to use variables and return the variable but arrow function shorthand we don't have to do that
+
 let cityName = document.querySelector("#city-name");
 let currDay = document.querySelector("#thedate");
 let weatherImg = document.querySelector("#weather-img");  //use this var to assign url each time
@@ -67,34 +68,42 @@ let currHumidity = document.querySelector("#humidity");
 
 let showRightSide = document.querySelector(".outer-div-right");
 
+let globalCityVar = "";  //use to store city whether from city button or search input box
+
 
 let searchcity = document.getElementById("search-input"); //gets city object
 let searchform = document.getElementById("search");  //gets form
-searchform.addEventListener("submit",getFormData);  //submit is an event that we need to capture
 let prevSearchForm = document.getElementById("prev-searches"); //dynamically created buttons from local storage for prev city searches
-prevSearchForm.addEventListener("submit",getFormData);  
+searchform.addEventListener("submit",getFormData);  //submit is an event that we need to capture
+prevSearchForm.addEventListener("submit",getFormData);   
+
+const apiKey = "1ce7c4dc7aa95ed0725c005dcae7644f";  //for weather
 
 //https://www.3schools.in/2021/11/how-to-create-button-in-javascript.html
 //https://stackoverflow.com/questions/45056949/adding-button-to-specific-div
-function createCityButtons() {
-  var btn = document.createElement("button");
-  btn.type = "submit";  //same as submit button for new city
-  btn.id = "submit";
-  btn.innerText = "Los Angeles";  //loop and read local storage with city history
-  //btn.onclick = getFormData();  //fix this and called function to work for city search and city buttons****
-  var btnDivEl = document.getElementById('prev-searches');
-  btnDivEl.appendChild(btn);
-}
+
+//createCityButtons(); //previous search cities;
 
 function getFormData(e){  //e is submit event which is going to contain all properites of the event
 //prevents default functionality of form to submit the data to the server so city entered will stay 
   e.preventDefault();  //stops default behavior so we can capture the value
-  createCityButtons(); //previous search cities;
+   //globalCityVar will be not be 0 if a city history button was pushed.  If no city button pushed, the value in the 
+   //input search box will be used.  If still empty, will exit right there.
+   if(globalCityVar.length === 0) {
+     globalCityVar = searchcity.value;  //get value from city input box if not value from button
+   }
+   //no city button pressed and no value entered in search input box so leave program
+   if(globalCityVar.length === 0) {
+    console.log("No city entered.");
+    window.stop();
+   }
+  // let city = searchcity.value;
+   //console.log(city);
+   console.log(globalCityVar);  
+     
 
-   let city = searchcity.value;
-   //console.log(city);  
 fetch(
-  `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=1ce7c4dc7aa95ed0725c005dcae7644f`
+  `http://api.openweathermap.org/geo/1.0/direct?q=${globalCityVar}&limit=1&appid=${apiKey}`
 )
   .then(function (response) {
     let data = response.json();
@@ -230,4 +239,40 @@ fetch(
 //   .then((data) => console.log(data))
 //   .catch((error) => console.log(error));
 
-// why they should be in sequence?
+function getFormData2(e){
+  console.log('hello');
+
+}
+
+function createCityButtons() {
+  var btn = document.createElement("button");
+  btn.type = "submit";  //same as submit button for new city
+  btn.id = "city-btn1";
+  btn.classname = "city-btn";
+  btn.innerText = "Los Angeles";  //loop and read local storage with city history
+  globalCityVar = btn.innerText;
+  //btn.onclick = getFormData;  //fix this and called function to work for city search and city buttons****
+  // Attach the "click" event to your button
+  btn.addEventListener('click', getFormData);
+  var btnDivEl = document.getElementById('prev-searches');
+  btnDivEl.appendChild(btn);
+
+  // var btn = document.createElement("BUTTON");
+  // var t = document.createTextNode("Los Angeles");
+
+  //btn.setAttribute("style","color:red;font-size:23px");
+//   btn.id = "city-btn1";
+//   btn.classname = "city-btn";
+//   btn.appendChild(t);
+//   var btnDivEl = document.getElementById('prev-searches');
+//   btnDivEl.appendChild(btn);
+//   btn.setAttribute("onclick", alert("clicked"));
+}
+
+ function init(){
+  //e.preventDefault();
+  createCityButtons();  //from local storage
+
+ }
+
+  init();

@@ -9,7 +9,7 @@
     flex-direction: column;
     min-height: 100vh;
     justify-content: flex-start;
-    background: white;
+    background: white; 
   }
 
 .search-btn{
@@ -22,7 +22,7 @@
    border-radius: 5px;
    font-family:Calibri, 'Trebuchet MS', sans-serif;
    font-size: 16px;
-   font-weight: 500; /*bold = 600 so this is a bit less than full bold*/
+   font-weight: 550; /*bold = 600 so this is a bit less than full bold*/
 }
    /*never give height to labels, inputs, buttons or headings*/
 .search-input {  /*rounded borders on input box*/
@@ -66,7 +66,7 @@
     text-align: center;
     width: 260px;
     margin-bottom: 10px;
-    padding: 10px 0 10px 0px;  /*space around*/
+    padding: 10px 0 10px 0px;  /*space around */
     border: none;  /*no border*/
     border-radius: 5px;
     font-family:Calibri, 'Trebuchet MS', sans-serif;
