@@ -68,42 +68,49 @@ let currHumidity = document.querySelector("#humidity");
 
 let showRightSide = document.querySelector(".outer-div-right");
 
-let globalCityVar = "";  //use to store city whether from city button or search input box
+let cityVar = "";  //use to store city whether from city button or search input box
+//if pastCitySearches array does not exist in Local Storage, initialize it as a new empty array.  If it already exists in local storage, get those values
+//If we don't do it this way, we will only be storing values for one run of the application.  Once we refresh, it will overwrite the previous local storage saves.
+let cityArray = JSON.parse(localStorage.getItem("pastCitySearches")) || []; //OR
 
 
 let searchcity = document.getElementById("search-input"); //gets city object
 let searchform = document.getElementById("search");  //gets form
 let prevSearchForm = document.getElementById("prev-searches"); //dynamically created buttons from local storage for prev city searches
-searchform.addEventListener("submit",getFormData);  //submit is an event that we need to capture
-prevSearchForm.addEventListener("submit",getFormData);   
+searchform.addEventListener("submit",getSearchCityValue);  //submit is an event that we need to capture
+prevSearchForm.addEventListener("submit",getPastCityValue);   
 
-const apiKey = "1ce7c4dc7aa95ed0725c005dcae7644f";  //for weather
+const apiKey = "1ce7c4dc7aa95ed0725c005dcae7644f";  //for weather api calls
 
 //https://www.3schools.in/2021/11/how-to-create-button-in-javascript.html
 //https://stackoverflow.com/questions/45056949/adding-button-to-specific-div
 
-//createCityButtons(); //previous search cities;
+function getSearchCityValue(e){
+  cityVar = searchcity.value;
+  getFormData(e,cityVar);
+}
 
-function getFormData(e){  //e is submit event which is going to contain all properites of the event
+function getPastCityValue(e){
+  cityVar = "Camden"; //btn???.value;  //need to read innertext of button that was pressed
+  getFormData(e,cityVar);
+}
+
+function getFormData(e, city){  //e is submit event which is going to contain all properites of the event
 //prevents default functionality of form to submit the data to the server so city entered will stay 
   e.preventDefault();  //stops default behavior so we can capture the value
-   //globalCityVar will be not be 0 if a city history button was pushed.  If no city button pushed, the value in the 
+   //globalCityVar will be not be 0 if a city history button was pressed.  If no city button pressed, the value in the 
    //input search box will be used.  If still empty, will exit right there.
-   if(globalCityVar.length === 0) {
-     globalCityVar = searchcity.value;  //get value from city input box if not value from button
-   }
-   //no city button pressed and no value entered in search input box so leave program
-   if(globalCityVar.length === 0) {
-    console.log("No city entered.");
-    window.stop();
-   }
+  //  if(globalCityVar.length === 0) {
+  //    globalCityVar = searchcity.value;  //get value from city input box if not value from button
+  //  }
   // let city = searchcity.value;
    //console.log(city);
-   console.log(globalCityVar);  
-   saveCityData(globalCityVar); //puts in local storage  
+   console.log(city);
+   //shouldn't we check first to see if this city is already in local storage so don't have duplicates?  
+   saveCityData(city); //puts in local storage  
 
 fetch(
-  `http://api.openweathermap.org/geo/1.0/direct?q=${globalCityVar}&limit=1&appid=${apiKey}`
+  `http://api.openweathermap.org/geo/1.0/direct?q=${cityVar}&limit=1&appid=${apiKey}`
 )
   .then(function (response) {
     let data = response.json();
@@ -141,7 +148,7 @@ fetch(
     //use backticks around entire string that contains the variables, which makes it a template literal
     //to get weather units in Farenheit, need to add parm for units=imperial
     fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=1ce7c4dc7aa95ed0725c005dcae7644f`
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
     )  //0: weather: Array(1) 0:{id: 801, main: 'Clouds', description: 'few clouds', icon: '02d'}
     //02d = day 02n = night
       .then((response) => {  //this is another way to do what we did above 
@@ -150,7 +157,7 @@ fetch(
       .then((returnData) => {
         //[0] is the first array under list - first weather data for city entered
         //this return a promise so if anything is wrong in this then, the rest is skipped and goes to catch
-        console.log(returnData);
+      //  console.log(returnData);
         let desc = returnData.list[0].weather[0].description;
         let icon = returnData.list[0].weather[0].icon;
         let theday = formatDate(returnData.list[0].dt_txt);
@@ -161,7 +168,7 @@ fetch(
         let wind = returnData.list[0].wind.speed;
         let humidity = returnData.list[0].main.humidity;
         //can console.log multiple variables as seen below
-        console.log({theday, desc, icon, city, temp, wind,humidity});
+      //  console.log({theday, desc, icon, city, temp, wind,humidity});
         weatherImg.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
         //use backticks to make temperate literal so spcace will not be ignored
         //use innerHTML instead of textContent so interpreted correctly not as text
@@ -187,13 +194,13 @@ fetch(
         // array.filter((item) => { return comparison })
         // array.filter(myFunc)
         // array.filter(item => item !== other) return all items that do not equal other
-        //
+        // filter is a higher order method that is only available to arrays, so it forEach
         const todaysDate = returnData.list[0].dt_txt
         const daysAfterToday = returnData.list.filter(item => item.dt_txt !== todaysDate)
         // chunk takes an array and chunk length, and returns an array  OF arrays
         // There are 8 timeframes in each day
         let daysArray = chunk(daysAfterToday, 8)
-        console.log({daysArray})
+        //console.log({daysArray})
 
         /* 
         daysArray = [
@@ -205,10 +212,11 @@ fetch(
         ]
 
         */
-
+        // forEach is higher order function which also runs simple for loop like a regular loop under the hood
+        // forEach takes in each element and applies some functionality
         daysArray.forEach((day, idx) => {
           const today = day[2]
-          console.log({today, idx})
+          //console.log({today, idx})
           // let humidEl = document.querySelector(`humidity${idx}`)
           // humidEl.innerHTML = day.main.humidity;
           document.querySelector(`#weather-img${idx}`).src = `http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`;
@@ -239,27 +247,25 @@ fetch(
 //   .then((data) => console.log(data))
 //   .catch((error) => console.log(error));
 
-function getFormData2(e){
-  console.log('hello');
-
-}
-
-//get city data from local storage
+//read city data from local storage
 function createCityButtons(){ 
   let data = JSON.parse(localStorage.getItem('pastCitySearches'));
   console.log(data.city); 
+  //only display first 8 cities in local storage
+  for (let i = 0; i <= 8; i++) {
+    var btn = document.createElement("button");
+    btn.type = "submit";  //same as submit button for new city
+    btn.id = "city-btn1";
+    btn.classname = "city-btn";
+    btn.innerText = data.city;  //loop and read local storage with city history
+    cityVar = btn.innerText;
+    //btn.onclick = getFormData;  //fix this and called function to work for city search and city buttons****
+    // Attach the "click" event to your button
+    btn.addEventListener('click', getFormData);
+    var btnDivEl = document.getElementById('prev-searches');
+    btnDivEl.appendChild(btn);
+  }
 
-  var btn = document.createElement("button");
-  btn.type = "submit";  //same as submit button for new city
-  btn.id = "city-btn1";
-  btn.classname = "city-btn";
-  btn.innerText = "Los Angeles";  //loop and read local storage with city history
-  globalCityVar = btn.innerText;
-  //btn.onclick = getFormData;  //fix this and called function to work for city search and city buttons****
-  // Attach the "click" event to your button
-  btn.addEventListener('click', getFormData);
-  var btnDivEl = document.getElementById('prev-searches');
-  btnDivEl.appendChild(btn);
 
   // var btn = document.createElement("BUTTON");
   // var t = document.createTextNode("Los Angeles");
@@ -272,10 +278,18 @@ function createCityButtons(){
 //   btnDivEl.appendChild(btn);
 //   btn.setAttribute("onclick", alert("clicked"));
 }
-
+;
   function saveCityData(city){
-    cityArray = {city};
-    localStorage.setItem("pastCitySearches", JSON.stringify(cityArray));  
+    //first check if this city already exists in LS
+    //the extra = below checks for the data type - strict inequality operator
+    for (let i = 0; i <= cityArray.length; i++) {
+      if(cityArray[i] === city) {
+      }else{
+        cityArray.push(city);  //push this new value to cityArray
+        localStorage.setItem("pastCitySearches", JSON.stringify(cityArray));  
+      }
+    }
+
   }
 
  function init(){

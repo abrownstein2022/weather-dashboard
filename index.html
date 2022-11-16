@@ -24,7 +24,10 @@
                         <form class="search-form" id="search">
                             <!-- input is self-closing so need / before > -->
                             <!-- placeholder offers suggestion in input box -->
-                            <input class="search-input" id="search-input" placeholder="San Diego" />
+                            <!-- add minlength and required so user must enter at least 2 characters in the box and cannot be empty on submit.
+                             Also, lighter for the browser to do it this way and not in JavaScript. 
+                             These attributes of the element give excellent pre-defined messages to the user.-->
+                            <input class="search-input" id="search-input" placeholder="San Diego" minlength="2" required />
                             <button class="search-btn" type="submit" id="submit">Search</button>
                         </form>
                         <div id="prev-searches">
