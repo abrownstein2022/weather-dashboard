@@ -100,7 +100,7 @@ function getFormData(e){  //e is submit event which is going to contain all prop
   // let city = searchcity.value;
    //console.log(city);
    console.log(globalCityVar);  
-     
+   saveCityData(globalCityVar); //puts in local storage  
 
 fetch(
   `http://api.openweathermap.org/geo/1.0/direct?q=${globalCityVar}&limit=1&appid=${apiKey}`
@@ -244,7 +244,11 @@ function getFormData2(e){
 
 }
 
-function createCityButtons() {
+//get city data from local storage
+function createCityButtons(){ 
+  let data = JSON.parse(localStorage.getItem('pastCitySearches'));
+  console.log(data.city); 
+
   var btn = document.createElement("button");
   btn.type = "submit";  //same as submit button for new city
   btn.id = "city-btn1";
@@ -268,6 +272,11 @@ function createCityButtons() {
 //   btnDivEl.appendChild(btn);
 //   btn.setAttribute("onclick", alert("clicked"));
 }
+
+  function saveCityData(city){
+    cityArray = {city};
+    localStorage.setItem("pastCitySearches", JSON.stringify(cityArray));  
+  }
 
  function init(){
   //e.preventDefault();
