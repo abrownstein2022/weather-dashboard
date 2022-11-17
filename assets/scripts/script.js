@@ -68,36 +68,45 @@ let currHumidity = document.querySelector("#humidity");
 
 let showRightSide = document.querySelector(".outer-div-right");
 
-let cityVar = "";  //use to store city whether from city button or search input box
+//let cityVar = "";  //use to store city whether from city button or search input box
 //if pastCitySearches array does not exist in Local Storage, initialize it as a new empty array.  If it already exists in local storage, get those values
 //If we don't do it this way, we will only be storing values for one run of the application.  Once we refresh, it will overwrite the previous local storage saves.
 let cityArray = JSON.parse(localStorage.getItem("pastCitySearches")) || []; //OR
 
 
 let searchcity = document.getElementById("search-input"); //gets city object
-let searchform = document.getElementById("search");  //gets form
-let prevSearchForm = document.getElementById("prev-searches"); //dynamically created buttons from local storage for prev city searches
-searchform.addEventListener("submit",getSearchCityValue);  //submit is an event that we need to capture
-prevSearchForm.addEventListener("submit",getPastCityValue);   
+//let searchform = document.getElementById("search");  //gets form
+// let prevSearchForm = document.getElementById("prev-searches"); //dynamically created buttons from local storage for prev city searches
+// searchform.addEventListener("submit",getSearchCityValue);  //submit is an event that we need to capture
+// // prevSearchForm.addEventListener("submit",getPastCityValue);   
+let searchBtn = document.getElementById("search-btn"); //dynamically created buttons from local storage for prev city searches
+// searchBtn.addEventListener("click", function(){ getSearchCityValue(e) });  //submit is an event that we need to capture
+searchBtn.addEventListener("click", function(){
+  handleSearch(searchcity.value) 
+}); 
+
 
 const apiKey = "1ce7c4dc7aa95ed0725c005dcae7644f";  //for weather api calls
 
 //https://www.3schools.in/2021/11/how-to-create-button-in-javascript.html
 //https://stackoverflow.com/questions/45056949/adding-button-to-specific-div
 
-function getSearchCityValue(e){
-  cityVar = searchcity.value;
-  getFormData(e,cityVar);
-}
+// function getSearchCityValue(e){
+//   cityVar = searchcity.value;
+//   console.log(cityVar);
+//   handleSearch(e,cityVar);
+// }
 
-function getPastCityValue(e){
-  cityVar = "Camden"; //btn???.value;  //need to read innertext of button that was pressed
-  getFormData(e,cityVar);
-}
+// function getPastCityValue(e){
+//   cityVar = btn.textContent // "Camden"; //btn???.value;  //need to read innertext of button that was pressed
+//   console.log(cityVar);
+//   handleSearch(e,cityVar);
+// }
 
-function getFormData(e, city){  //e is submit event which is going to contain all properites of the event
+//better name handleCity
+function handleSearch(city){  //e is submit event which is going to contain all properites of the event
 //prevents default functionality of form to submit the data to the server so city entered will stay 
-  e.preventDefault();  //stops default behavior so we can capture the value
+  // e.preventDefault();  //stops default behavior so we can capture the value
    //globalCityVar will be not be 0 if a city history button was pressed.  If no city button pressed, the value in the 
    //input search box will be used.  If still empty, will exit right there.
   //  if(globalCityVar.length === 0) {
@@ -106,11 +115,10 @@ function getFormData(e, city){  //e is submit event which is going to contain al
   // let city = searchcity.value;
    //console.log(city);
    console.log(city);
-   //shouldn't we check first to see if this city is already in local storage so don't have duplicates?  
-   saveCityData(city); //puts in local storage  
+
 
 fetch(
-  `http://api.openweathermap.org/geo/1.0/direct?q=${cityVar}&limit=1&appid=${apiKey}`
+  `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
 )
   .then(function (response) {
     let data = response.json();
@@ -197,7 +205,7 @@ fetch(
         // filter is a higher order method that is only available to arrays, so it forEach
         const todaysDate = returnData.list[0].dt_txt
         const daysAfterToday = returnData.list.filter(item => item.dt_txt !== todaysDate)
-        // chunk takes an array and chunk length, and returns an array  OF arrays
+        // chunk takes an array and chunk length, and returns an array OF arrays
         // There are 8 timeframes in each day
         let daysArray = chunk(daysAfterToday, 8)
         //console.log({daysArray})
@@ -226,7 +234,9 @@ fetch(
           document.querySelector(`#humidity${idx}`).innerHTML = today.main.humidity + ' %';
 
         })
-            
+        //we're still inside the then block - only save city in local storage if data returned from API
+        //and not already in LS as in validation below
+        saveCityData(city); //puts in local storage              
         showRightSide.classList.remove("hide");   //now show the right section, which is hidden when page opens  
       })
       .catch(err => {
@@ -238,7 +248,7 @@ fetch(
     console.log(err);
     return err;
   });
-}  //end of function  getFormData()  
+}  //end of function  handleSearch()  
 //if multiple statements or using {}, must use return
 // fetch('https://api.openweathermap.org/data/2.5/forecast?lat=40.7128&lon=74.0060&appid=1ce7c4dc7aa95ed0725c005dcae7644f') 
 //   .then((response) =>{
@@ -251,20 +261,43 @@ fetch(
 function createCityButtons(){ 
   let data = JSON.parse(localStorage.getItem('pastCitySearches'));
   console.log(data.city); 
-  //only display first 8 cities in local storage
-  for (let i = 0; i <= 8; i++) {
+  //we only have at most 8 values in LS but could be fewer so need to go to array length
+  //data is an array returned from JSON.parse (utility returns objs into arrays)
+  //JSON is not great at parsing.  If it finds any issues at all, it will bomb.
+  for (let i = 0; i < data.length; i++) {
     var btn = document.createElement("button");
-    btn.type = "submit";  //same as submit button for new city
-    btn.id = "city-btn1";
-    btn.classname = "city-btn";
-    btn.innerText = data.city;  //loop and read local storage with city history
-    cityVar = btn.innerText;
-    //btn.onclick = getFormData;  //fix this and called function to work for city search and city buttons****
+    // btn.type = "submit";  //same as submit button for new city
+    btn.id = "city-btn" + i;
+    btn.className = "city-btn";
+    btn.innerText = data[i];  //loop and read local storage with city history
+    // btn.innerText = cityVar;
+    //btn.onclick = handleSearch;  //fix this and called function to work for city search and city buttons****
     // Attach the "click" event to your button
-    btn.addEventListener('click', getFormData);
+    // The target is the actual element that was clicked, and is referenced by the event
+    btn.addEventListener('click', function(e){ handleSearch(e.target.innerText) });
     var btnDivEl = document.getElementById('prev-searches');
     btnDivEl.appendChild(btn);
   }
+
+  /** Javascript is weird
+   * Tyepcasting (type coersion) can cause undesired behavior
+   * 
+   * '2' + 2 = '22'
+   *  2 + '2' = 4
+   *  'b' + 'a' + unnamed + 'a' = 'baNaNa' 
+   *  typeof NaN == 'number'
+   * 
+   * Always use template strings, they are better at handling string concat
+   *  `string${var}`
+   */
+
+  /** Example of simple method to create elements with string literals
+  * find the parent container - where you want to put the elements
+  * create an empty string to concat other literal elements to
+  * let str = ``
+  * data.forEach(cityName => str += `<button onClick='handleSearch'>${cityName.substring(0,100)}</button>`)
+  * container.innerHTML = str
+  */
 
 
   // var btn = document.createElement("BUTTON");
@@ -279,16 +312,25 @@ function createCityButtons(){
 //   btn.setAttribute("onclick", alert("clicked"));
 }
 ;
+//array.includes - check if array has a particular value
   function saveCityData(city){
     //first check if this city already exists in LS
     //the extra = below checks for the data type - strict inequality operator
-    for (let i = 0; i <= cityArray.length; i++) {
-      if(cityArray[i] === city) {
-      }else{
-        cityArray.push(city);  //push this new value to cityArray
-        localStorage.setItem("pastCitySearches", JSON.stringify(cityArray));  
-      }
+    // for (let i = 0; i <= cityArray.length; i++) {
+    //   if(cityArray[i] === city) {
+    //   }else{
+    //     cityArray.push(city);  //push this new value to cityArray
+    //     localStorage.setItem("pastCitySearches", JSON.stringify(cityArray));  
+    //   }
+    // }
+    //if current city does not include current entered city, will be saved
+    if(!cityArray.includes(city)){
+      cityArray.unshift(city);  //unshift will save this new values at the beginning of the array
+      //use slice below so will only leave 8 most recent saves in this area since
+      //we only want to display at most 8 past city searches
+      localStorage.setItem("pastCitySearches", JSON.stringify(cityArray.slice(0,7))); 
     }
+
 
   }
 
