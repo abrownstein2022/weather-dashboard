@@ -221,10 +221,12 @@ function handleSearch(city){
 //   .catch((error) => console.log(error));
 //read city data from local storage
 function createCityButtons(){ 
+ // location.reload();  //reload every time we start ***HOW TO DO THIS SO USER SEES CITY BUTTON RIGH AFTER PRESSING SEARCH BUTTON
   let data = JSON.parse(localStorage.getItem('pastCitySearches'));
   //we only have at most 8 values in LS but could be fewer so need to go to array length
   //data is an array returned from JSON.parse (utility returns objs into arrays)
   //JSON is not great at parsing.  If it finds any issues at all, it will bomb.
+  if(data) {   //11/29/22 use boolean here so only go into code if at least one value in array
   for (let i = 0; i < data.length; i++) {
     var btn = document.createElement("button");
     // btn.type = "submit";  //same as submit button for new city
@@ -239,6 +241,7 @@ function createCityButtons(){
     var btnDivEl = document.getElementById('prev-searches');
     btnDivEl.appendChild(btn);
   }
+ }
   /** Javascript is weird
    * Tyepcasting (type coersion) can cause undesired behavior
    * 
