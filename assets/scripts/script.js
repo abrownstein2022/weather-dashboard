@@ -1,9 +1,4 @@
-
-// 1ce7c4dc7aa95ed0725c005dcae7644f
-
-//40.7128° N, 74.0060° W
 // https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}. 
-
 //use another API to call the weather api - fetch is an api
 //console.log is also an api.  document object is an api. can see this in official JS documentation.
 //MDN web docs https://developer.mozilla.org/en-US/
@@ -12,12 +7,11 @@
 //https://developer.mozilla.org/en-US/docs/Web/API/fetch#examples
 //use this one: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 //fetch().then().then().catch()
-//fetch is a method.  It accepts a url or an api endpoint and makes a request to that.
+//built in functions are called methods. fetch is a method.  It accepts a url or an api endpoint and makes a request to that.
 //when it makes a request, 
-function test(){
-}
-test();  //takes much less time (less than 1ms) 
-//built in functions are called methods - fetch is a method
+// function test(){
+// }
+// test();  //takes much less time (less than 1ms) 
 //there's a chance there could be a delay when making the call to the API on another server
 //that can take some time to come back. fetch runs this call in the background and we don't want to wait too long.
 //even 3 seconds is too long.  returns a promise in the background. 2 conditions.  get data or do not get data. resolve or reject.
@@ -28,12 +22,12 @@ test();  //takes much less time (less than 1ms)
 //method so we can process it.
 //Installed extension Live Server in VS code so we do not have to refresh the browser after making changes in vs code 
 //To check if the code works,"open with live server" and then do inspect in dev tools and go to console tab.  This still didn't allow us to bypass.
-//Moesif Origin & CORS Changer  www.moesif.com.  Chrome extension installed.  Allows us to make cross domain request.
+//if Origin & CORS Changer  www.moesif.com.  Chrome extension installed.  Allows us to make cross domain request.
 //only use curly braces in lat, lon and appid below if it's a variable
 //favicon is the icon that's in the browser tab 
 //when look at weather data returned, 8 rows for each dates (look at dev tools - console and expand second row arrow)
 //live share extension is a tool that allows another person to collaborate on your project at the same time
-//fetch is a method (built-in function) in JS.  Fetch is also an API. see line 7.  API stands for application programming interface.
+//fetch is a method (built-in function) in JS.  Fetch is also an API. .  API stands for application programming interface.
 //making a request using lat and long in this api call using fetch
 //api endpoint https is called the api endpoint
 //open weather map is a server that has multiple api endspoint.  The line below for the weather is just one of them.
@@ -67,59 +61,33 @@ let currWind = document.querySelector("#wind");
 let currHumidity = document.querySelector("#humidity");
 
 let showRightSide = document.querySelector(".outer-div-right");
-
-//let cityVar = "";  //use to store city whether from city button or search input box
 //if pastCitySearches array does not exist in Local Storage, initialize it as a new empty array.  If it already exists in local storage, get those values
 //If we don't do it this way, we will only be storing values for one run of the application.  Once we refresh, it will overwrite the previous local storage saves.
 let cityArray = JSON.parse(localStorage.getItem("pastCitySearches")) || []; //OR
-
-
 let searchcity = document.getElementById("search-input"); //gets city object
 //let searchform = document.getElementById("search");  //gets form
 // let prevSearchForm = document.getElementById("prev-searches"); //dynamically created buttons from local storage for prev city searches
 // searchform.addEventListener("submit",getSearchCityValue);  //submit is an event that we need to capture
-// // prevSearchForm.addEventListener("submit",getPastCityValue);   
 let searchBtn = document.getElementById("search-btn"); //dynamically created buttons from local storage for prev city searches
-// searchBtn.addEventListener("click", function(){ getSearchCityValue(e) });  //submit is an event that we need to capture
 searchBtn.addEventListener("click", function(){
-  handleSearch(searchcity.value) 
+  if (document.getElementById("search-input").value != "") {
+    handleSearch(searchcity.value);
+  } else {
+    alert("Please enter a city value in the textbox.");
+   }  
 }); 
 
-
 const apiKey = "1ce7c4dc7aa95ed0725c005dcae7644f";  //for weather api calls
-
 //https://www.3schools.in/2021/11/how-to-create-button-in-javascript.html
 //https://stackoverflow.com/questions/45056949/adding-button-to-specific-div
-
-// function getSearchCityValue(e){
-//   cityVar = searchcity.value;
-//   console.log(cityVar);
-//   handleSearch(e,cityVar);
-// }
-
-// function getPastCityValue(e){
-//   cityVar = btn.textContent // "Camden"; //btn???.value;  //need to read innertext of button that was pressed
-//   console.log(cityVar);
-//   handleSearch(e,cityVar);
-// }
-
-//better name handleCity
-function handleSearch(city){  //e is submit event which is going to contain all properites of the event
+//e is submit event which is going to contain all properites of the event (originally passed e below from Click event but changed code to pass city)
+function handleSearch(city){  
 //prevents default functionality of form to submit the data to the server so city entered will stay 
   // e.preventDefault();  //stops default behavior so we can capture the value
-   //globalCityVar will be not be 0 if a city history button was pressed.  If no city button pressed, the value in the 
-   //input search box will be used.  If still empty, will exit right there.
-  //  if(globalCityVar.length === 0) {
-  //    globalCityVar = searchcity.value;  //get value from city input box if not value from button
-  //  }
-  // let city = searchcity.value;
    //console.log(city);
-   console.log(city);
-
-
-fetch(
+ fetch(
   `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
-)
+  )
   .then(function (response) {
     let data = response.json();
     //console.log(data);
@@ -138,14 +106,11 @@ fetch(
     var chunks = [],
         i = 0,
         n = arr.length;
-  
     while (i < n) {
       chunks.push(arr.slice(i, i += len));
     }
-  
     return chunks;
   }
-
   /** started to repeat this behavior, so move to external function for easy repetition */
   const formatDate = (str) => str.slice(5,7) + '/' + str.slice(8,10) + '/' + str.slice(0,4);
     // Promise states.......
@@ -178,7 +143,7 @@ fetch(
         //can console.log multiple variables as seen below
       //  console.log({theday, desc, icon, city, temp, wind,humidity});
         weatherImg.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-        //use backticks to make temperate literal so spcace will not be ignored
+        //use backticks to make template literal so spcace will not be ignored
         //use innerHTML instead of textContent so interpreted correctly not as text
         currDay.innerHTML = `&nbsp;(` + theday + `)`;
         cityName.textContent = city;
@@ -209,7 +174,6 @@ fetch(
         // There are 8 timeframes in each day
         let daysArray = chunk(daysAfterToday, 8)
         //console.log({daysArray})
-
         /* 
         daysArray = [
           [morning, noon, ...],
@@ -218,7 +182,6 @@ fetch(
           [timeframe1, timeframe2, ...],
           [timeframe1, timeframe2, ...],
         ]
-
         */
         // forEach is higher order function which also runs simple for loop like a regular loop under the hood
         // forEach takes in each element and applies some functionality
@@ -245,7 +208,7 @@ fetch(
       });
   })
   .catch(function(err) {
-    console.log(err);
+    //console.log(err);
     return err;
   });
 }  //end of function  handleSearch()  
@@ -256,11 +219,9 @@ fetch(
 //   } )
 //   .then((data) => console.log(data))
 //   .catch((error) => console.log(error));
-
 //read city data from local storage
 function createCityButtons(){ 
   let data = JSON.parse(localStorage.getItem('pastCitySearches'));
-  console.log(data.city); 
   //we only have at most 8 values in LS but could be fewer so need to go to array length
   //data is an array returned from JSON.parse (utility returns objs into arrays)
   //JSON is not great at parsing.  If it finds any issues at all, it will bomb.
@@ -278,7 +239,6 @@ function createCityButtons(){
     var btnDivEl = document.getElementById('prev-searches');
     btnDivEl.appendChild(btn);
   }
-
   /** Javascript is weird
    * Tyepcasting (type coersion) can cause undesired behavior
    * 
@@ -290,7 +250,6 @@ function createCityButtons(){
    * Always use template strings, they are better at handling string concat
    *  `string${var}`
    */
-
   /** Example of simple method to create elements with string literals
   * find the parent container - where you want to put the elements
   * create an empty string to concat other literal elements to
@@ -298,18 +257,6 @@ function createCityButtons(){
   * data.forEach(cityName => str += `<button onClick='handleSearch'>${cityName.substring(0,100)}</button>`)
   * container.innerHTML = str
   */
-
-
-  // var btn = document.createElement("BUTTON");
-  // var t = document.createTextNode("Los Angeles");
-
-  //btn.setAttribute("style","color:red;font-size:23px");
-//   btn.id = "city-btn1";
-//   btn.classname = "city-btn";
-//   btn.appendChild(t);
-//   var btnDivEl = document.getElementById('prev-searches');
-//   btnDivEl.appendChild(btn);
-//   btn.setAttribute("onclick", alert("clicked"));
 }
 ;
 //array.includes - check if array has a particular value
@@ -328,16 +275,13 @@ function createCityButtons(){
       cityArray.unshift(city);  //unshift will save this new values at the beginning of the array
       //use slice below so will only leave 8 most recent saves in this area since
       //we only want to display at most 8 past city searches
-      localStorage.setItem("pastCitySearches", JSON.stringify(cityArray.slice(0,7))); 
+      localStorage.setItem("pastCitySearches", JSON.stringify(cityArray.slice(0,8))); 
     }
-
-
   }
 
  function init(){
   //e.preventDefault();
   createCityButtons();  //from local storage
-
  }
 
   init();

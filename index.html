@@ -16,30 +16,19 @@
         <div>
             <div class="container">
                 <main>
-                    <!-- anytime something is submitted, needs a form and submit button -->
                     <div class="outer-div-left">
                         <!--block vs inline elements-->
-                        <!--heading goes before form-->
                         <h2>Search for a City:</h2>
-                        <!-- <form class="search-form" id="search" onsubmit="doThis()"> -->
-                            <!-- input is self-closing so need / before > -->
+                            <!-- input is self-closing so need / before the end > -->
                             <!-- placeholder offers suggestion in input box -->
-                            <!-- add minlength and required so user must enter at least 2 characters in the box and cannot be empty on submit.
-                             Also, lighter for the browser to do it this way and not in JavaScript. 
-                             These attributes of the element give excellent pre-defined messages to the user.-->
-                            <input class="search-input" id="search-input" placeholder="San Diego" minlength="2" required />
+                            <input class="search-input" id="search-input" placeholder="San Diego" />
                             <button class="search-btn" id="search-btn">Search</button>
                         <!-- </form> -->
-                        <div id="prev-searches">
-                            <!-- <button class="city-btn" id="city-btn0">Atlanta</button>
-                            <button class="city-btn" id="city-btn1">Denver</button>
-                            <button class="city-btn" id="city-btn2">Seattle</button> -->
+                        <div id="prev-searches" class="prev-searches"> <!--do these buttons inside this div dynamically with JS-->
                         </div>
                     </div>
                     <div class="outer-div-right hide">
-                        <!--outer div for right side-->
                         <div class="curr-day-forecast">
-                            <!--div for the current day forecast-->
                             <span class="first-weather-box">
                                 <h3 id="city-name"></h3>
                                 <h3 id="thedate"></h3>
