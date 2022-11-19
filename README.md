@@ -46,10 +46,10 @@ N/A
 
 ## Usage
 
-```md
 Here's a link to this application in GitHub:
 https://abrownstein2022.github.io/ch6-weather-dashboard/
 
+```md
 If you have not already used this application in your browser, enter a city name in the input box in the 
 middle of the screen, and click on the Search button.  Weather data for your entered city will appear to
 the right.  This city name will also be stored in local storage and appear as a button the next time you 
@@ -68,6 +68,7 @@ enter a city name in the input box, you see a message asking you to enter a city
 ![example image4](./assets/images/ch6-screen4.png)
 
 ![example image5](./assets/images/ch6-screen5.png)
+
 
 ## Credits
 
