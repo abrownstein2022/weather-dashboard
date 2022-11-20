@@ -86,7 +86,7 @@ function handleSearch(city){
   // e.preventDefault();  //stops default behavior so we can capture the value
    //console.log(city);
  fetch(
-  `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
+  `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
   )
   .then(function (response) {
     let data = response.json();
@@ -142,7 +142,7 @@ function handleSearch(city){
         let humidity = returnData.list[0].main.humidity;
         //can console.log multiple variables as seen below
       //  console.log({theday, desc, icon, city, temp, wind,humidity});
-        weatherImg.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+        weatherImg.src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
         //use backticks to make template literal so spcace will not be ignored
         //use innerHTML instead of textContent so interpreted correctly not as text
         currDay.innerHTML = `&nbsp;(` + theday + `)`;
@@ -190,7 +190,7 @@ function handleSearch(city){
           //console.log({today, idx})
           // let humidEl = document.querySelector(`humidity${idx}`)
           // humidEl.innerHTML = day.main.humidity;
-          document.querySelector(`#weather-img${idx}`).src = `http://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`;
+          document.querySelector(`#weather-img${idx}`).src = `https://openweathermap.org/img/wn/${today.weather[0].icon}@2x.png`;
           document.querySelector(`#thedate${idx}`).innerHTML = formatDate(today.dt_txt);
           document.querySelector(`#temp${idx}`).innerHTML = today.main.temp + ' °F';
           document.querySelector(`#wind${idx}`).innerHTML = today.wind.speed + ' MPH';
