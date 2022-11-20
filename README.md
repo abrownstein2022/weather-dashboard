@@ -69,6 +69,7 @@ enter a city name in the input box, you see a message asking you to enter a city
 
 ![example image5](./assets/images/ch6-screen5.png)
 
+![demo video](./assets/video/ch6-weather-dashboard-demo.gif)
 
 ## Credits
 
