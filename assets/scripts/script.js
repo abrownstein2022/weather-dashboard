@@ -201,6 +201,10 @@ function handleSearch(city){
         //and not already in LS as in validation below
         saveCityData(city); //puts in local storage              
         showRightSide.classList.remove("hide");   //now show the right section, which is hidden when page opens  
+
+        //clear parent element
+        createCityButtons();
+
       })
       .catch(err => {
         //need to use try..catch to catch the error and handle it before it bombs. Stops JS execution.
@@ -227,6 +231,12 @@ function createCityButtons(){
   //data is an array returned from JSON.parse (utility returns objs into arrays)
   //JSON is not great at parsing.  If it finds any issues at all, it will bomb.
   if(data) {   //11/29/22 use boolean here so only go into code if at least one value in array
+  //identifies the selector  
+  var btnDivEl = document.getElementById('prev-searches');  
+  //12/14/22 clear out the parent content so we can add all the history buttons from scratch
+  //added this line below and moved the line above from below so the city search buttons would be displayed
+  //after the user enters their city search in the input box, not when they refresh.  Timing/scope issue.
+  btnDivEl.textContent = ""; 
   for (let i = 0; i < data.length; i++) {
     var btn = document.createElement("button");
     // btn.type = "submit";  //same as submit button for new city
@@ -238,7 +248,7 @@ function createCityButtons(){
     // Attach the "click" event to your button
     // The target is the actual element that was clicked, and is referenced by the event
     btn.addEventListener('click', function(e){ handleSearch(e.target.innerText) });
-    var btnDivEl = document.getElementById('prev-searches');
+  
     btnDivEl.appendChild(btn);
   }
  }
