@@ -130,7 +130,7 @@ function handleSearch(city){
       .then((returnData) => {
         //[0] is the first array under list - first weather data for city entered
         //this return a promise so if anything is wrong in this then, the rest is skipped and goes to catch
-      //  console.log(returnData);
+       console.log(returnData);
         let desc = returnData.list[0].weather[0].description;
         let icon = returnData.list[0].weather[0].icon;
         let theday = formatDate(returnData.list[0].dt_txt);

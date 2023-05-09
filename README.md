@@ -47,7 +47,7 @@ N/A
 ## Usage
 
 Here's a link to this application in GitHub:
-https://abrownstein2022.github.io/ch6-weather-dashboard/
+https://abrownstein2022.github.io/weather-dashboard/
 
 ```md
 If you have not already used this application in your browser, enter a city name in the input box in the 

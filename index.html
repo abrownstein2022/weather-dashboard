@@ -12,7 +12,6 @@
                 <h1> Weather Dashboard</h1>
             </div>
         </header>
-
         <div>
             <div class="container">
                 <main>
@@ -27,11 +26,11 @@
                         <div id="prev-searches" class="prev-searches"> <!--do these buttons using textContent inside this div dynamically with JS-->
                         </div>
                     </div>
-                    <div class="outer-div-right hide">
+                    <div class="outer-div-right ">
                         <div class="curr-day-forecast">
                             <span class="first-weather-box">
-                                <h3 id="city-name"></h3>
-                                <h3 id="thedate"></h3>
+                                <h3 id="city-name">camden</h3>
+                                <h3 id="thedate">(2/2/23)</h3>
                                 <!--2rem is about the size of the text in an h3 heading. 1rem is std text size-->
                                 <img id="weather-img" style="max-height:3rem;" src=""
                                     alt="image of weather predicted for the day">
@@ -40,9 +39,9 @@
                             let url = "url-full-path-weatherimage.jpg";
                              document.getElementById("weather-img").src = url;  
                             -->
-                            <p>Temp: <span id="temp"></span> </p>
-                            <p>Wind: <span id="wind"></span> </p>
-                            <p>Humidity: <span id="humidity"></span></p>
+                            <p>Temp: <span id="temp">85F</span> </p>
+                            <p>Wind: <span id="wind">25</span> </p>
+                            <p>Humidity: <span id="humidity">25%</span></p>
                         </div>
                         <div>
                             <h3>5-Day Forecast:</h3>
