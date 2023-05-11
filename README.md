@@ -1,4 +1,4 @@
-# Rutgers Coding Bootcamp Challenge 6: Weather Dashboard
+#  Weather Dashboard Using Server Side APIs
 
 ![license](https://img.shields.io/badge/license-MIT-black)
 
